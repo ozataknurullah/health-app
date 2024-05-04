@@ -1,11 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:health/user_auth/firebase_auth_services.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 
-class SignupForm extends StatelessWidget {
+class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
+
+  @override
+  State<SignupForm> createState() => _SignupFormState();
+}
+
+class _SignupFormState extends State<SignupForm> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _schoolNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _schoolNumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +36,9 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-
-          //Username
+          // Kullanıcı adı
           TextFormField(
-            expands: false,
+            controller: _usernameController,
             decoration: const InputDecoration(
               labelText: TTexts.username,
               prefixIcon: Icon(Iconsax.user_edit),
@@ -28,9 +48,9 @@ class SignupForm extends StatelessWidget {
             height: TSizes.spaceBtwInputFields,
           ),
 
-          //Phone Number
+          // Telefon numarası
           TextFormField(
-            expands: false,
+            controller: _schoolNumberController,
             decoration: const InputDecoration(
               labelText: TTexts.schoolNum,
               prefixIcon: Icon(Iconsax.book),
@@ -39,10 +59,9 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-
-          //Email
+          // Email
           TextFormField(
-            expands: false,
+            controller: _emailController,
             decoration: const InputDecoration(
               labelText: TTexts.email,
               prefixIcon: Icon(Iconsax.direct),
@@ -51,10 +70,10 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwInputFields,
           ),
-
-          //Password
+          // Şifre
           TextFormField(
-            expands: false,
+            controller: _passwordController,
+            obscureText: true,
             decoration: const InputDecoration(
               labelText: TTexts.password,
               prefixIcon: Icon(Iconsax.eye_slash),
@@ -63,18 +82,16 @@ class SignupForm extends StatelessWidget {
           const SizedBox(
             height: TSizes.spaceBtwSections,
           ),
-
           const SizedBox(
             height: TSizes.spaceBtwSections,
           ),
-
-          //Signup Button
-
+          // Kayıt butonu
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () {}, //=> Get.to(() => const VerifyEmailScreen()),
-                child: const Text(TTexts.createAccount)),
+              onPressed: _signUp,
+              child: const Text(TTexts.createAccount),
+            ),
           ),
           const SizedBox(
             height: TSizes.spaceBtwItems,
@@ -82,5 +99,22 @@ class SignupForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _signUp() async {
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    String schoolNumber = _schoolNumberController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signUpWithEmailAndPassword(
+        username, email, schoolNumber, password);
+
+    if (user != null) {
+      print("User is successfully created");
+      Navigator.pushNamed(context, "/home");
+    } else {
+      print("Error");
+    }
   }
 }

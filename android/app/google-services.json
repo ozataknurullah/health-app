@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "699531424368",
+    "project_id": "healtycampus",
+    "storage_bucket": "healtycampus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699531424368:android:18d1eeb16e0e713f3c7ab5",
+        "android_client_info": {
+          "package_name": "com.example.health"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDByV6u9ZGkna8TbP7agtZRkmVdAIJ3q50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,9 +6,14 @@ import 'package:health/screens/signup/widgets/signup_form.dart';
 import 'package:health/utils/constants/sizes.dart';
 import 'package:health/utils/constants/text_strings.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
