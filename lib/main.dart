@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:health/screens/home/home.dart';
 import 'package:health/screens/login/login.dart';
 
 void main() async {
@@ -16,9 +16,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: const HomeScreen(),
+      routes: {
+        "/home": (context) => const HomeScreen(),
+        "/login": (context) => const LoginScreen(),
+      },
     );
   }
 }
